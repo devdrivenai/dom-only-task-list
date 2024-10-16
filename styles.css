@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+/* resets and setup */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+input,
+textarea,
+button {
+  font-family: "Open Sans", sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* layout */
+
+body {
+  min-height: 100vh;
+  /*   align-content: center; */
+}
+
+.container {
+  width: min(80%, 750px);
+  margin-inline: auto;
+  /*   border: 2px solid crimson; */
+}
+
+h1 {
+  width: max-content;
+  margin-inline: auto;
+  margin-block: 2em;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2rem;
+
+  margin-block-end: 2em;
+}
+
+.submit-new-task {
+  padding: 0.5em 1.5em;
+  border-radius: 50px;
+}
+
+.no-tasks-msg {
+  padding: 1em 2em;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+}
+
+.task-text-wrapper {
+  position: relative;
+  width: 60%;
+}
+
+.task-action-btns {
+  /* width: 30%; */
+  display: flex;
+}
+
+.task-action-btn {
+  padding: 1em 2em;
+  margin-inline: .5em;
+}
+
+.task-action-btn:hover img {
+  pointer-events: none;
+}
+
+.edit-confirm-btn {
+  display: none;
+}
+
+.edit-confirm-btn.active {
+  display: block;
+  position: absolute;
+  inset-block: 5px;
+  inset-inline-end: 5px;
+  width: 2.5rem;
+  border-radius: 5px 25px 25px 5px;
+}
+
+.task-item input {
+  /* flex: .85; */
+  width: 100%;
+  padding: .5em 1em;
+}
+
+/* colors, bg, etc */
+
+h1 {
+  color: coral;
+  text-decoration: underline overline;
+}
+
+.submit-new-task {
+  background-color: coral;
+  color: #fff;
+  opacity: 1;
+  transition: all 200ms ease-in-out;
+}
+
+.submit-new-task:hover {
+  opacity: 0.85;
+}
+
+.task-item input {
+  color: #fff;
+  background-color: coral;  
+}
+
+.task-item input[disabled] {
+  background-color: transparent;
+  color: coral;
+  font-weight: 700;
+}
+
+.no-tasks-msg {
+  background-color: #ddd;
+  color: coral;
+}
+
+/* typography */
+
+.submit-new-task,
+.new-task-text,
+.task-item,
+.no-tasks-msg,
+.task-item input {
+  font-size: 1.25rem;
+}
+
+.new-task-text,
+.no-tasks-msg,
+.editable-task {
+  font-style: italic;
+}
+
+/* more specific ones */
+
+.no-tasks-msg {
+  border-radius: 25px;
+}
+
+.task-item {
+  border-block: groove .5rem #ddd;
+}
+
+.task-action-btn {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 400ms ease-in-out;
+}
+
+.task-action-btn:hover {
+  border: 1px solid orange;
+}
+
+.task-action-btn:disabled:hover {
+  border: none;
+  cursor: not-allowed;
+}
+
+.task-item input {
+  border: 1px solid coral;
+  border-radius: 25px;
+}
