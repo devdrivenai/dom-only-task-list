@@ -3,6 +3,7 @@ import { addGenericElem, addDefaultEvent } from "./modules/utils.js";
 import { submitNewTaskHandler } from "./modules/newTask.js";
 import { tasksPersisted } from "./modules/tasks.js";
 import { toggleEditability } from "./modules/utils.js";
+import { toggleFormAndBtns } from "./modules/task.js";
 
 window.onload = () => {
   if (!tasksPersisted) {
@@ -38,6 +39,7 @@ const handleKeyPress = (ev) => {
     toggleEditability(editableTask)
     confirmBtn.classList.remove('active')
     editableTask.classList.remove('editable-task')
+    toggleFormAndBtns()
   } else if ( keyPressed === 'Enter') {
     ev.preventDefault()
     if (!editableTask.value) {
@@ -46,7 +48,8 @@ const handleKeyPress = (ev) => {
     confirmBtn.classList.remove('active')
     toggleEditability(editableTask)
     editableTask.setAttribute('data-text', editableTask.value)
-    editableTask.classList.remove('editable-task')    
+    editableTask.classList.remove('editable-task')
+    toggleFormAndBtns()  
   }
 }  
 

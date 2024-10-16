@@ -1,7 +1,7 @@
 import { allFormChildren } from "./DOMSelectors.js"
 import { toggleEditability } from "./utils.js"
 
-const toggleFormAndBtns = () => {
+export const toggleFormAndBtns = () => {
   // task-action-btns are dynamic
   toggleEditability([...document.querySelectorAll('.task-action-btn'), ...allFormChildren])
 }
