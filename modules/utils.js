@@ -19,3 +19,28 @@ export const addDefaultEvent = (eventType, targetElem, handler) => {
     handler(ev);
   });
 };
+
+const toggleDisabledAttrib = (elem) => {
+  if (elem.getAttribute('disabled')) {
+    elem.removeAttribute('disabled')
+  } else {
+    elem.setAttribute('disabled', true)
+  }
+}
+
+export const toggleEditability = (elemSet) => {
+  if (!Array.isArray(elemSet) && !elemSet.classList) return
+  let allDisabled = true
+  if (elemSet.classList) {
+    toggleDisabledAttrib(elemSet)
+  } else {
+    for (const elem of elemSet) {
+      if (elem.classList) {
+        toggleDisabledAttrib(elem)
+      } else {
+        allDisabled = false
+      }
+    }
+  }
+  return allDisabled
+}

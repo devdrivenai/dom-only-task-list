@@ -184,9 +184,14 @@ h1 {
   border: 1px solid orange;
 }
 
-.task-action-btn:disabled:hover {
+.task-action-btn:disabled {
   border: none;
+}
+
+.task-action-btn:disabled,
+.new-task-form > *:disabled {
   cursor: not-allowed;
+  opacity: .5;
 }
 
 .task-item input {

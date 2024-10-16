@@ -2,7 +2,7 @@ import * as selectors from "./modules/DOMSelectors.js"
 import { addGenericElem, addDefaultEvent } from "./modules/utils.js";
 import { submitNewTaskHandler } from "./modules/newTask.js";
 import { tasksPersisted } from "./modules/tasks.js";
-import { makeUneditable } from "./modules/task.js";
+import { toggleEditability } from "./modules/utils.js";
 
 window.onload = () => {
   if (!tasksPersisted) {
@@ -35,7 +35,7 @@ const handleKeyPress = (ev) => {
 
   if (keyPressed === 'Escape') {
     editableTask.value = editableTask.getAttribute('data-text')
-    makeUneditable(editableTask)
+    toggleEditability(editableTask)
     confirmBtn.classList.remove('active')
     editableTask.classList.remove('editable-task')
   } else if ( keyPressed === 'Enter') {
@@ -44,7 +44,7 @@ const handleKeyPress = (ev) => {
       editableTask.value = editableTask.getAttribute('data-text')
     }
     confirmBtn.classList.remove('active')
-    makeUneditable(editableTask)
+    toggleEditability(editableTask)
     editableTask.setAttribute('data-text', editableTask.value)
     editableTask.classList.remove('editable-task')    
   }
