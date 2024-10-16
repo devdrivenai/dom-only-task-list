@@ -1,3 +1,5 @@
+import { newTaskForm } from "./DOMSelectors.js"
+
 const makeEditable = (elem) => {
   elem.removeAttribute('disabled')
 }
@@ -15,6 +17,9 @@ export const editBtnHandler = (ev) => {
   for (let btn of actionBtns) {
     console.log(btn)
     btn.setAttribute('disabled', true)
+  }
+  for (let child of newTaskForm.children) {
+    child.setAttribute('disabled', true)
   }
   const taskTextInput = editBtn.parentElement.previousElementSibling.firstElementChild
   const textToEdit = taskTextInput.value

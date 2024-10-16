@@ -31,7 +31,7 @@ const handleKeyPress = (ev) => {
   }
   const confirmBtn = editableTask.nextElementSibling
   console.log('i didnt get here, or did I?')
-  const editBtn = editableTask.parentElement.nextElementSibling.firstElementChild
+  // const editBtn = editableTask.parentElement.nextElementSibling.firstElementChild
 
   if (keyPressed === 'Escape') {
     editableTask.value = editableTask.getAttribute('data-text')
