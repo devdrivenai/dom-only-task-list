@@ -114,6 +114,23 @@ form {
   padding: .5em 1em;
 }
 
+.overlay-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  display: grid;
+}
+
+.confirm-delete-box {
+  width: min(80%, 900px);
+  margin: auto;
+  text-align: center;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;  
+}
+
 /* colors, bg, etc */
 
 h1 {
@@ -148,6 +165,18 @@ h1 {
   color: coral;
 }
 
+.overlay-bg {
+  background-color: rgba(60, 60, 60, .8);
+}
+
+.confirm-delete-box {
+  background-color: #fff;
+}
+
+.confirm-delete-box .task-action-btn {
+  margin-inline: 2em;
+}
+
 /* typography */
 
 .submit-new-task,
@@ -162,6 +191,10 @@ h1 {
 .no-tasks-msg,
 #editable-task {
   font-style: italic;
+}
+
+.confirm-delete-box {
+  font-size: 1.5rem;
 }
 
 /* more specific ones */

@@ -1,7 +1,7 @@
 import * as selectors from "./DOMSelectors.js";
 import { addGenericElem, addInputElement } from "./utils.js";
 import { persistTask } from "./tasks.js";
-import { editBtnHandler } from "./task.js";
+import { editBtnHandler, deleteBtnHandler } from "./task.js";
 
 export const submitNewTaskHandler = (ev) => {
   ev.preventDefault();
@@ -39,6 +39,7 @@ const addNewTaskToDOM = (taskTextInput) => {
 
   const taskDeleteBtn = addGenericElem(taskActionBtns, 'button')
   taskDeleteBtn.classList.add("task-action-btn", 'task-delete-btn');
+  taskDeleteBtn.addEventListener('click', deleteBtnHandler)
   const deleteIcon = addGenericElem(taskDeleteBtn, 'img')
   deleteIcon.setAttribute('src', 'assets/delete-coral.svg')
 
