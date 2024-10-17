@@ -1,5 +1,6 @@
 import { addGenericElem } from "./utils.js"
-import { exitDeleteMode } from "./task.js"
+import { exitDeleteMode, loadNoTaskMsg } from "./task.js"
+import { deleteTask } from "./tasks.js"
 
 const createOverlayBg = () => {
   const overlayBg = addGenericElem(document.body, 'div')
@@ -8,7 +9,7 @@ const createOverlayBg = () => {
   return overlayBg  
 }
 
-export const confirmDeleteBox = (task) => {
+export const confirmDeleteBox = (task, taskId) => {
   const confirmDeleteBox = addGenericElem(createOverlayBg(), 'div')
   confirmDeleteBox.classList.add('confirm-delete-box')
   const confirmMsg = addGenericElem(confirmDeleteBox, 'p', 'Are you sure you want to delete this task:')
@@ -16,7 +17,7 @@ export const confirmDeleteBox = (task) => {
   const deleteBtns = addGenericElem(confirmDeleteBox, 'div')
   const deleteBtn = addGenericElem(deleteBtns, 'button')
   deleteBtn.classList.add("task-action-btn", 'confirm-delete-btn');
-  deleteBtn.addEventListener('click', confirmDeleteHandler)
+  deleteBtn.addEventListener('click', (ev, taskId) => {confirmDeleteHandler(ev, taskId)})
   const deleteIcon = addGenericElem(deleteBtn, 'img')
   deleteIcon.setAttribute('src', 'assets/delete-coral.svg')
   const cancelBtn = addGenericElem(deleteBtns, 'button')
@@ -33,8 +34,10 @@ const cancelDeleteHandler = () => {
   exitDeleteMode()
 }
 
-const confirmDeleteHandler = () => {
+const confirmDeleteHandler = (ev, taskId) => {
   document.querySelector('#deletable-task').remove()
   document.querySelector('.overlay-bg').remove()
+  deleteTask(taskId)
+  if (!document.querySelector('.tasks').childElementCount) loadNoTaskMsg()
   exitDeleteMode()
 }

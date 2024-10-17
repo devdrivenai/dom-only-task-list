@@ -1,7 +1,8 @@
-import { allFormChildren } from "./DOMSelectors.js"
+import { allFormChildren, tasksSection } from "./DOMSelectors.js"
 import { toggleEditability } from "./utils.js"
 import { toggleId } from "./utils.js"
 import { confirmDeleteBox as createConfirmBox } from "./confirmDeleteBox.js"
+import { addGenericElem } from "./utils.js"
 
 export const toggleFormAndBtns = () => {
   // task-action-btns are dynamic
@@ -29,7 +30,7 @@ export const editBtnHandler = (ev) => {
   toggleEditMode(taskTextInput)
 }
 
-export const enterDeleteMode = (task) => {
+export const enterDeleteMode = (task, taskId) => {
   createConfirmBox(task)
 }
 
@@ -44,5 +45,15 @@ export const deleteBtnHandler = (ev) => {
   const taskItem = deleteBtn.parentElement.parentElement
   const taskText = deleteBtn.parentElement.previousElementSibling.firstElementChild.value
   taskItem.setAttribute('id', 'deletable-task')
-  enterDeleteMode(taskText)
+  const taskId = taskItem.dataset.taskid
+  enterDeleteMode(taskText, taskId)
+}
+
+export const loadNoTaskMsg = () => {
+  const noTasksMessage = addGenericElem(
+    tasksSection,
+    "div",
+    "No tasks yet! Is there anything you want to remember? Add it now!"
+  );
+  noTasksMessage.classList.add("no-tasks-msg");  
 }

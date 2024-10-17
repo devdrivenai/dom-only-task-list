@@ -7,17 +7,18 @@ export const submitNewTaskHandler = (ev) => {
   ev.preventDefault();
   if (!selectors.newTaskText.value) return;
   const textVal = selectors.newTaskText.value;
-  persistTask(textVal)
-  addNewTaskToDOM(textVal);
+  const taskId = persistTask(textVal)
+  addNewTaskToDOM(textVal, taskId);
   selectors.newTaskText.value = "";
 };
 
-const addNewTaskToDOM = (taskTextInput) => {
+const addNewTaskToDOM = (taskTextInput, taskId) => {
   if (document.querySelector(".no-tasks-msg")) {
     document.querySelector(".no-tasks-msg").remove();
   }
   const newTaskDiv = addGenericElem(selectors.tasksSection, "div");
   newTaskDiv.classList.add("task-item");
+  newTaskDiv.dataset.taskid = taskId
   const taskTextWrapper = addGenericElem(newTaskDiv, 'div')
   taskTextWrapper.classList.add('task-text-wrapper')
   const newTask = addInputElement(taskTextWrapper, taskTextInput);

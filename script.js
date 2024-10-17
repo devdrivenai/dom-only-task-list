@@ -2,17 +2,13 @@ import * as selectors from "./modules/DOMSelectors.js"
 import { addGenericElem, addDefaultEvent } from "./modules/utils.js";
 import { submitNewTaskHandler } from "./modules/newTask.js";
 import { tasksPersisted } from "./modules/tasks.js";
-import { toggleEditMode } from "./modules/task.js";
+import { toggleEditMode, loadNoTaskMsg } from "./modules/task.js";
 
 window.onload = () => {
   if (!tasksPersisted) {
-    const noTasksMessage = addGenericElem(
-      selectors.tasksSection,
-      "div",
-      "No tasks yet! Is there anything you want to remember? Add it now!"
-    );
-    noTasksMessage.classList.add("no-tasks-msg");
+    loadNoTaskMsg()
   } else {
+    console.log(tasks.length)
     // console.log('tasks loaded') // this will be useful later after persisting
   }
 
