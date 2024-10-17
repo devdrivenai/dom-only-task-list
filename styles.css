@@ -166,6 +166,11 @@ h1 {
 
 /* more specific ones */
 
+.new-task-text {
+  padding: .5em 1em;
+  border-radius: 25px;
+}
+
 .no-tasks-msg {
   border-radius: 25px;
 }
