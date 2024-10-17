@@ -21,9 +21,9 @@ const addNewTaskToDOM = (taskTextInput) => {
   const taskTextWrapper = addGenericElem(newTaskDiv, 'div')
   taskTextWrapper.classList.add('task-text-wrapper')
   const newTask = addInputElement(taskTextWrapper, taskTextInput);
+  newTask.setAttribute('data-text', taskTextInput)
   newTask.setAttribute('disabled', true)
   const editConfirmBtn = addGenericElem(taskTextWrapper, 'button')
-  // editConfirmBtn.classList.add("task-action-btn", 'edit-confirm-btn');
   editConfirmBtn.classList.add('edit-confirm-btn')
   const confirmIcon = addGenericElem(editConfirmBtn, 'img')
   confirmIcon.setAttribute('src', 'assets/confirm-coral.svg')

@@ -6,16 +6,27 @@ export const toggleFormAndBtns = () => {
   toggleEditability([...document.querySelectorAll('.task-action-btn'), ...allFormChildren])
 }
 
+export const toggleEditMode = (inputField, textEdit = '') => {
+  const confirmBtn = inputField.nextElementSibling
+  confirmBtn.classList.toggle('active')
+  if (!textEdit) {
+    inputField.value = inputField.getAttribute('data-text')
+  } else {
+    inputField.setAttribute('data-text', textEdit)
+  }
+  toggleEditability(inputField)
+  toggleFormAndBtns()
+  if (inputField.classList.contains('editable-task')) {
+    inputField.classList.remove('editable-task')
+  } else {
+    inputField.classList.add('editable-task')
+    inputField.focus()
+  }
+}
+
 export const editBtnHandler = (ev) => {
   const editBtn = ev.target
-  // selectors specific to the task's event
+  // selector specific to the task's event
   const taskTextInput = editBtn.parentElement.previousElementSibling.firstElementChild
-  const textToEdit = taskTextInput.value
-  taskTextInput.classList.add('editable-task')
-  taskTextInput.setAttribute('data-text', textToEdit)
-  toggleEditability(taskTextInput)
-  toggleFormAndBtns()
-  document.querySelector('.editable-task').focus()
-  const confirmBtn = taskTextInput.nextElementSibling
-  confirmBtn.classList.add('active')
+  toggleEditMode(taskTextInput)
 }

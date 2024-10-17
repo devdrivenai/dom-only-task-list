@@ -10,7 +10,6 @@ export const addGenericElem = (appendTo, elemTag, text = "") => {
 export const addInputElement = (appendTo, textVal = '') => {
   const inputElem = addGenericElem(appendTo, 'input')
   inputElem.value = textVal
-  // inputElem.setAttribute('disabled', true)
   return inputElem
 }
 
