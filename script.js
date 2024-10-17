@@ -22,9 +22,9 @@ window.onload = () => {
 };
 
 const handleKeyPress = (ev) => {
-  const editableTask = document.querySelector('.editable-task')
+  const editableTask = document.querySelector('#editable-task')
   if (!editableTask) {
-    console.log('nothing to do... lets return')
+    // console.log('nothing to do... lets return')
     return
   }
 

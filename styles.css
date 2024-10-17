@@ -160,7 +160,7 @@ h1 {
 
 .new-task-text,
 .no-tasks-msg,
-.editable-task {
+#editable-task {
   font-style: italic;
 }
 

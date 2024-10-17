@@ -1,5 +1,6 @@
 import { allFormChildren } from "./DOMSelectors.js"
 import { toggleEditability } from "./utils.js"
+import { toggleId } from "./utils.js"
 
 export const toggleFormAndBtns = () => {
   // task-action-btns are dynamic
@@ -16,12 +17,8 @@ export const toggleEditMode = (inputField, textEdit = '') => {
   }
   toggleEditability(inputField)
   toggleFormAndBtns()
-  if (inputField.classList.contains('editable-task')) {
-    inputField.classList.remove('editable-task')
-  } else {
-    inputField.classList.add('editable-task')
-    inputField.focus()
-  }
+  toggleId('editable-task', inputField)
+  inputField.focus()
 }
 
 export const editBtnHandler = (ev) => {

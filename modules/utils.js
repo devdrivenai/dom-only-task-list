@@ -27,6 +27,10 @@ const toggleDisabledAttrib = (elem) => {
   }
 }
 
+export const isHtmlElem = (elem) => {
+  return elem?.classList
+}
+
 export const toggleEditability = (elemSet) => {
   if (!Array.isArray(elemSet) && !elemSet.classList) return
   let allDisabled = true
@@ -42,4 +46,14 @@ export const toggleEditability = (elemSet) => {
     }
   }
   return allDisabled
+}
+
+export const toggleId = (id, elem) => {
+  if (isHtmlElem(elem)) {
+    if (!document.querySelector(`#${id}`) && !window.id) {
+      elem.setAttribute('id', id)
+    } else if (document.querySelector(`#${id}`)) {
+      elem.removeAttribute('id')
+    }
+  }
 }
