@@ -13,9 +13,9 @@ export const toggleEditMode = (inputField, textEdit = '') => {
   const confirmBtn = inputField.nextElementSibling
   confirmBtn.classList.toggle('active')
   if (!textEdit) {
-    inputField.value = inputField.getAttribute('data-text')
+    inputField.value = inputField.dataset.text
   } else {
-    inputField.setAttribute('data-text', textEdit)
+    inputField.dataset.text = textEdit
   }
   toggleEditability(inputField)
   toggleFormAndBtns()

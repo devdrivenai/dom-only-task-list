@@ -22,7 +22,7 @@ const addNewTaskToDOM = (taskTextInput, taskId) => {
   const taskTextWrapper = addGenericElem(newTaskDiv, 'div')
   taskTextWrapper.classList.add('task-text-wrapper')
   const newTask = addInputElement(taskTextWrapper, taskTextInput);
-  newTask.setAttribute('data-text', taskTextInput)
+  newTask.dataset.text = taskTextInput
   newTask.setAttribute('disabled', true)
   const editConfirmBtn = addGenericElem(taskTextWrapper, 'button')
   editConfirmBtn.classList.add('edit-confirm-btn')
