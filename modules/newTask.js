@@ -1,5 +1,5 @@
 import * as selectors from "./DOMSelectors.js";
-import { addGenericElem, addInputElement } from "./utils.js";
+import { addGenericElem } from "./utils.js";
 import { persistTask } from "./tasks.js";
 import { editBtnHandler, deleteBtnHandler } from "./task.js";
 
@@ -16,32 +16,38 @@ const addNewTaskToDOM = (taskTextInput, taskId) => {
   if (document.querySelector(".no-tasks-msg")) {
     document.querySelector(".no-tasks-msg").remove();
   }
-  const newTaskDiv = addGenericElem(selectors.tasksSection, "div");
-  newTaskDiv.classList.add("task-item");
-  newTaskDiv.dataset.taskid = taskId
-  const taskTextWrapper = addGenericElem(newTaskDiv, 'div')
-  taskTextWrapper.classList.add('task-text-wrapper')
-  const newTask = addInputElement(taskTextWrapper, taskTextInput);
-  newTask.dataset.text = taskTextInput
-  newTask.setAttribute('disabled', true)
-  const editConfirmBtn = addGenericElem(taskTextWrapper, 'button')
-  editConfirmBtn.classList.add('edit-confirm-btn')
-  const confirmIcon = addGenericElem(editConfirmBtn, 'img')
-  confirmIcon.setAttribute('src', 'assets/confirm-coral.svg')
+  const newTaskDiv = addGenericElem(selectors.tasksSection, "div", {
+    classes: ['task-item'],
+    attribs: {dataset: {taskid: taskId}}
+  });
+  const taskTextWrapper = addGenericElem(newTaskDiv, 'div', {classes: ['task-text-wrapper']})
+  // newTask
+  addGenericElem(taskTextWrapper, 'input', {
+    attribs: {
+      disabled: true,
+      value: taskTextInput,
+      dataset: { 
+        text: taskTextInput
+      }
+    }
+  })
+  const editConfirmBtn = addGenericElem(taskTextWrapper, 'button', {classes: ['edit-confirm-btn']})
+  // confirmIcon
+  addGenericElem(editConfirmBtn, 'img', {attribs: {src: 'assets/confirm-coral.svg'}})
+  
+  const taskActionBtns = addGenericElem(newTaskDiv, 'div', {classes: ['task-action-btns']})
 
-  const taskActionBtns = addGenericElem(newTaskDiv, 'div')
-  taskActionBtns.classList.add('task-action-btns')
+  const taskEditBtn = addGenericElem(taskActionBtns, 'button', {
+    classes: ['task-action-btn', 'task-edit-btn'],
+    eventListeners: {click: editBtnHandler},
+  })
+  // editIcon
+  addGenericElem(taskEditBtn, 'img', {attribs: {src: 'assets/edit-coral.svg'}})
 
-  const taskEditBtn = addGenericElem(taskActionBtns, 'button')
-  taskEditBtn.classList.add("task-action-btn", 'task-edit-btn');
-  taskEditBtn.addEventListener('click', editBtnHandler)
-  const editIcon = addGenericElem(taskEditBtn, 'img')
-  editIcon.setAttribute('src', 'assets/edit-coral.svg')
-
-  const taskDeleteBtn = addGenericElem(taskActionBtns, 'button')
-  taskDeleteBtn.classList.add("task-action-btn", 'task-delete-btn');
-  taskDeleteBtn.addEventListener('click', deleteBtnHandler)
-  const deleteIcon = addGenericElem(taskDeleteBtn, 'img')
-  deleteIcon.setAttribute('src', 'assets/delete-coral.svg')
-
+  const taskDeleteBtn = addGenericElem(taskActionBtns, 'button', {
+    classes: ['task-action-btn', 'task-delete-btn'],
+    eventListeners: {click: deleteBtnHandler}
+  })
+  // deleteIcon
+  addGenericElem(taskDeleteBtn, 'img', {attribs: {src: 'assets/delete-coral.svg'}})
 };

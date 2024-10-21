@@ -3,28 +3,30 @@ import { exitDeleteMode, loadNoTaskMsg } from "./task.js"
 import { deleteTask } from "./tasks.js"
 
 const createOverlayBg = () => {
-  const overlayBg = addGenericElem(document.body, 'div')
-  overlayBg.classList.add('overlay-bg')
+  const overlayBg = addGenericElem(document.body, 'div', {classes: ['overlay-bg']})
   document.body.style.overflow = 'hidden'
   return overlayBg  
 }
 
 export const confirmDeleteBox = (task, taskId) => {
-  const confirmDeleteBox = addGenericElem(createOverlayBg(), 'div')
-  confirmDeleteBox.classList.add('confirm-delete-box')
-  const confirmMsg = addGenericElem(confirmDeleteBox, 'p', 'Are you sure you want to delete this task:')
-  const taskText = addGenericElem(confirmDeleteBox, 'p', task)
+  const confirmDeleteBox = addGenericElem(createOverlayBg(), 'div', {classes: ['confirm-delete-box']})
+  // confirmMsg:
+  addGenericElem(confirmDeleteBox, 'p', {text: 'Are you sure you want to delete this task:'})
+  // taskText
+  addGenericElem(confirmDeleteBox, 'p', task)
   const deleteBtns = addGenericElem(confirmDeleteBox, 'div')
-  const deleteBtn = addGenericElem(deleteBtns, 'button')
-  deleteBtn.classList.add("task-action-btn", 'confirm-delete-btn');
-  deleteBtn.addEventListener('click', (ev, taskId) => {confirmDeleteHandler(ev, taskId)})
-  const deleteIcon = addGenericElem(deleteBtn, 'img')
-  deleteIcon.setAttribute('src', 'assets/delete-coral.svg')
-  const cancelBtn = addGenericElem(deleteBtns, 'button')
-  cancelBtn.classList.add("task-action-btn", 'cancel-delete-btn');
-  cancelBtn.addEventListener('click', cancelDeleteHandler)
-  const cancelIcon = addGenericElem(cancelBtn, 'img')
-  cancelIcon.setAttribute('src', 'assets/cancel-coral.svg')
+  const deleteBtn = addGenericElem(deleteBtns, 'button', {
+    classes: ['task-action-btn', 'confirm-delete-btn'], 
+    eventListeners: {click: (ev, taskId) => confirmDeleteHandler(ev, taskId)}
+  })
+  // deleteIcon
+  addGenericElem(deleteBtn, 'img', {attribs: {src: 'assets/delete-coral.svg'}})
+  const cancelBtn = addGenericElem(deleteBtns, 'button', {
+    classes: ['task-action-btn', 'cancel-delete-btn'],
+    eventListeners: {click: cancelDeleteHandler}
+  })
+  // cancelIcon
+  addGenericElem(cancelBtn, 'img', {attribs: {src: 'assets/cancel-coral.svg'}})
   return confirmDeleteBox  
 }
 

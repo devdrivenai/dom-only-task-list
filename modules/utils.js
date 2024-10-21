@@ -1,22 +1,29 @@
-export const addGenericElem = (appendTo, elemTag, text = "") => {
+export const addGenericElem = (appendTo, elemTag, options = {}) => {
   const elem = document.createElement(elemTag);
-  let textNode = document.createTextNode(text);
-  if (textNode.length) {
-    elem.appendChild(textNode);
+
+  const { classes = [], eventListeners = {}, attribs = {}, text = '' } = options
+  
+  if (text) {
+    elem.textContent = text
   }
+
+  classes.forEach(className => elem.classList.add(className))
+
+  for (const [attrib, value] of Object.entries(attribs)) {
+    if (attrib === 'dataset') {
+      for (const [dataAttrib, dataValue] of Object.entries(value)) {
+        elem.dataset[dataAttrib] = dataValue
+      }
+    } else {
+      elem.setAttribute(attrib, value)
+    }
+  }
+
+  for (const [event, listener] of Object.entries(eventListeners)) {
+    elem.addEventListener(event, listener)
+  }
+
   return appendTo.appendChild(elem); // should return appended child
-};
-
-export const addInputElement = (appendTo, textVal = '') => {
-  const inputElem = addGenericElem(appendTo, 'input')
-  inputElem.value = textVal
-  return inputElem
-}
-
-export const addDefaultEvent = (eventType, targetElem, handler) => {
-  targetElem.addEventListener(eventType, (ev) => {
-    handler(ev);
-  });
 };
 
 const toggleDisabledAttrib = (elem) => {

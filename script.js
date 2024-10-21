@@ -1,5 +1,4 @@
 import * as selectors from "./modules/DOMSelectors.js"
-import { addGenericElem, addDefaultEvent } from "./modules/utils.js";
 import { submitNewTaskHandler } from "./modules/newTask.js";
 import { tasksPersisted } from "./modules/tasks.js";
 import { toggleEditMode, loadNoTaskMsg } from "./modules/task.js";
@@ -12,7 +11,7 @@ window.onload = () => {
     // console.log('tasks loaded') // this will be useful later after persisting
   }
 
-  addDefaultEvent("submit", selectors.newTaskForm, submitNewTaskHandler);
+  selectors.newTaskForm.addEventListener("submit", submitNewTaskHandler);
 
   document.addEventListener('keydown', handleKeyPress)
 };

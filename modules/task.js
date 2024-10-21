@@ -31,7 +31,7 @@ export const editBtnHandler = (ev) => {
 }
 
 export const enterDeleteMode = (task, taskId) => {
-  createConfirmBox(task)
+  createConfirmBox(task, taskId)
 }
 
 export const exitDeleteMode = () => {
@@ -50,10 +50,13 @@ export const deleteBtnHandler = (ev) => {
 }
 
 export const loadNoTaskMsg = () => {
-  const noTasksMessage = addGenericElem(
+  // noTaskMsg
+  addGenericElem(
     tasksSection,
     "div",
-    "No tasks yet! Is there anything you want to remember? Add it now!"
-  );
-  noTasksMessage.classList.add("no-tasks-msg");  
+    {
+      classes: ['no-tasks-msg'], 
+      text: 'No tasks yet! Is there anything you want to remember? Add it now!'
+    }
+  ); 
 }
