@@ -17,14 +17,16 @@ window.onload = () => {
 };
 
 const handleKeyPress = (ev) => {
+  const keyPressed = ev.key
+
   const editableTask = document.querySelector('#editable-task')
   if (!editableTask) {
-    // console.log('nothing to do... lets return')
+    if (keyPressed === 'Enter') {
+      submitNewTaskHandler(ev)
+    }
     return
   }
 
-  const keyPressed = ev.key
-  // console.log(keyPressed)
   if (keyPressed !== 'Escape' && keyPressed !== 'Enter') {
     return
   } else if (keyPressed === 'Escape') {

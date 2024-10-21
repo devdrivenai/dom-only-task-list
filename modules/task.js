@@ -8,13 +8,15 @@ export const toggleFormAndBtns = () => {
 }
 
 export const toggleEditMode = (inputField, textEdit = '') => {
-  const confirmBtn = inputField.nextElementSibling
-  confirmBtn.classList.toggle('active')
   if (!textEdit) {
     inputField.value = inputField.defaultValue
+  } else if (textEdit === inputField.defaultValue) {
+    return
   } else {
     inputField.defaultValue = inputField.value
   }
+  const confirmBtn = inputField.nextElementSibling
+  confirmBtn.classList.toggle('active')
   toggleEditability(inputField)
   toggleFormAndBtns()
   toggleId('editable-task', inputField)
