@@ -1,7 +1,7 @@
 import * as selectors from "./DOMSelectors.js";
 import { addGenericElem } from "./utils.js";
 import { persistTask } from "./tasks.js";
-import { editBtnHandler, deleteBtnHandler } from "./task.js";
+import { editBtnHandler, deleteBtnHandler, editConfirmBtnHandler } from "./task.js";
 
 export const submitNewTaskHandler = (ev) => {
   ev.preventDefault();
@@ -25,13 +25,13 @@ const addNewTaskToDOM = (taskTextInput, taskId) => {
   addGenericElem(taskTextWrapper, 'input', {
     attribs: {
       disabled: true,
-      value: taskTextInput,
-      dataset: { 
-        text: taskTextInput
-      }
+      value: taskTextInput
     }
   })
-  const editConfirmBtn = addGenericElem(taskTextWrapper, 'button', {classes: ['edit-confirm-btn']})
+  const editConfirmBtn = addGenericElem(taskTextWrapper, 'button', {
+    classes: ['edit-confirm-btn'],
+    eventListeners: {click: editConfirmBtnHandler}
+  })
   // confirmIcon
   addGenericElem(editConfirmBtn, 'img', {attribs: {src: 'assets/confirm-coral.svg'}})
   

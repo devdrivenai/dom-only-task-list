@@ -1,8 +1,6 @@
 import { allFormChildren, tasksSection } from "./DOMSelectors.js"
-import { toggleEditability } from "./utils.js"
-import { toggleId } from "./utils.js"
+import { addGenericElem, toggleEditability, toggleId, focusInput } from "./utils.js"
 import { confirmDeleteBox as createConfirmBox } from "./confirmDeleteBox.js"
-import { addGenericElem } from "./utils.js"
 
 export const toggleFormAndBtns = () => {
   // task-action-btns are dynamic
@@ -13,14 +11,24 @@ export const toggleEditMode = (inputField, textEdit = '') => {
   const confirmBtn = inputField.nextElementSibling
   confirmBtn.classList.toggle('active')
   if (!textEdit) {
-    inputField.value = inputField.dataset.text
+    inputField.value = inputField.defaultValue
   } else {
-    inputField.dataset.text = textEdit
+    inputField.defaultValue = inputField.value
   }
   toggleEditability(inputField)
   toggleFormAndBtns()
   toggleId('editable-task', inputField)
-  inputField.focus()
+  focusInput(inputField)
+}
+
+export const editConfirmBtnHandler = (ev) => {
+  const editConfirmBtn = ev.target
+  const inputField = editConfirmBtn.previousElementSibling
+  if (inputField.value === inputField.defaultValue) {
+    focusInput(inputField)
+    return
+  }
+  toggleEditMode(inputField, inputField.value)
 }
 
 export const editBtnHandler = (ev) => {

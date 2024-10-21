@@ -91,7 +91,8 @@ form {
   margin-inline: .5em;
 }
 
-.task-action-btn:hover img {
+.task-action-btn:hover img,
+.edit-confirm-btn:hover img {
   pointer-events: none;
 }
 

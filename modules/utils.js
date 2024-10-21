@@ -64,3 +64,9 @@ export const toggleId = (id, elem) => {
     }
   }
 }
+
+export const focusInput = (inputField) => {
+  inputField.focus()
+  // make sure cursor is at the end
+  inputField.selectionStart = inputField.value.length
+}
