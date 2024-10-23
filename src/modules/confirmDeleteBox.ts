@@ -1,4 +1,4 @@
-import { addGenericElem } from "./utils.js"
+import { addGenericElem, getElement } from "./utils.js"
 import { exitDeleteMode, loadNoTaskMsg } from "./task.js"
 import { deleteTask } from "./tasks.js"
 
@@ -8,16 +8,16 @@ const createOverlayBg = () => {
   return overlayBg  
 }
 
-export const confirmDeleteBox = (task, taskId) => {
+export const confirmDeleteBox = (task: string, taskId: number) => {
   const confirmDeleteBox = addGenericElem(createOverlayBg(), 'div', {classes: ['confirm-delete-box']})
   // confirmMsg:
   addGenericElem(confirmDeleteBox, 'p', {text: 'Are you sure you want to delete this task:'})
   // taskText
-  addGenericElem(confirmDeleteBox, 'p', task)
+  addGenericElem(confirmDeleteBox, 'p', {text: task})
   const deleteBtns = addGenericElem(confirmDeleteBox, 'div')
   const deleteBtn = addGenericElem(deleteBtns, 'button', {
     classes: ['task-action-btn', 'confirm-delete-btn'], 
-    eventListeners: {click: (ev, taskId) => confirmDeleteHandler(ev, taskId)}
+    eventListeners: {click: () => {confirmDeleteHandler(taskId)}}
   })
   // deleteIcon
   addGenericElem(deleteBtn, 'img', {attribs: {src: 'assets/delete-coral.svg'}})
@@ -31,15 +31,35 @@ export const confirmDeleteBox = (task, taskId) => {
 }
 
 const cancelDeleteHandler = () => {
-  document.querySelector('#deletable-task').removeAttribute('id')
-  document.querySelector('.overlay-bg').remove()
+  const task = getElement('#deletable-task')
+  if (task) {
+    task.removeAttribute('id')
+  }
+  // else log warning
+  const overlayBg = getElement('.overlay-bg')
+  if (overlayBg) {
+    overlayBg.remove()
+  }
+  // else log warning
   exitDeleteMode()
 }
 
-const confirmDeleteHandler = (ev, taskId) => {
-  document.querySelector('#deletable-task').remove()
-  document.querySelector('.overlay-bg').remove()
+const confirmDeleteHandler = (taskId: number) => {
+  const task = getElement('#deletable-task')
+  if (task) {
+    task.remove()
+  }
+  // else log warning
+  const overlayBg = getElement('.overlay-bg')
+  if (overlayBg) {
+    overlayBg.remove()
+  }
+  // else log warning
   deleteTask(taskId)
-  if (!document.querySelector('.tasks').childElementCount) loadNoTaskMsg()
+  const tasks = getElement('.tasks')
+  if (tasks) {
+    if (!tasks.childElementCount) loadNoTaskMsg
+  }
+  // does this one need a warning, too?
   exitDeleteMode()
 }

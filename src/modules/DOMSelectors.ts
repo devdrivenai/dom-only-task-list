@@ -1,4 +1,9 @@
-export const newTaskForm = document.querySelector(".new-task-form");
-export const newTaskText = document.querySelector(".new-task-text");
-export const tasksSection = document.querySelector(".tasks");
-export const allFormChildren = newTaskForm.children
+import { getElement } from "./utils"
+
+export const newTaskForm = getElement<HTMLFormElement>(".new-task-form")
+
+export const newTaskText = getElement<HTMLTextAreaElement>(".new-task-text")
+
+export const tasksSection = getElement<HTMLElement>('.tasks')
+
+export const allFormChildren: HTMLElement[] = newTaskForm ? Array.from(newTaskForm.children) as HTMLElement[] : []

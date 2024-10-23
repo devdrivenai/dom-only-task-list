@@ -7,19 +7,19 @@ window.onload = () => {
   if (!tasksPersisted) {
     loadNoTaskMsg()
   } else {
-    console.log(tasks.length)
+    console.log(tasksPersisted)
     // console.log('tasks loaded') // this will be useful later after persisting
   }
-
-  selectors.newTaskForm.addEventListener("submit", submitNewTaskHandler);
+  const newTask = selectors.newTaskForm as HTMLElement
+  newTask.addEventListener("submit", submitNewTaskHandler);
 
   document.addEventListener('keydown', handleKeyPress)
 };
 
-const handleKeyPress = (ev) => {
+const handleKeyPress = (ev: KeyboardEvent) => {
   const keyPressed = ev.key
 
-  const editableTask = document.querySelector('#editable-task')
+  const editableTask: HTMLInputElement | null = document.querySelector('#editable-task')
   if (!editableTask) {
     if (keyPressed === 'Enter') {
       submitNewTaskHandler(ev)
@@ -33,7 +33,7 @@ const handleKeyPress = (ev) => {
     toggleEditMode(editableTask)
   } else if (keyPressed === 'Enter') {
     ev.preventDefault()
-    toggleEditMode(editableTask, editableTask.value) 
+    toggleEditMode(editableTask, editableTask.value)
   }
 }  
 
