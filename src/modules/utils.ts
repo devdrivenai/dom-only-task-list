@@ -52,10 +52,12 @@ export const getElement = <T extends Element>(selector: string): T | null => {
 }
 
 const toggleDisabledAttrib = (elem: HTMLElement) => {
-  if (elem.getAttribute('disabled')) {
-    elem.removeAttribute('disabled')
-  } else {
+  // checks nullity first because attrib is string | null
+  // so empty string (set below) would be falsy
+  if (elem.getAttribute('disabled') === null) {
     elem.setAttribute('disabled', '')
+  } else {
+    elem.removeAttribute('disabled')
   }
 }
 
