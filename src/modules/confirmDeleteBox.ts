@@ -13,7 +13,7 @@ export const confirmDeleteBox = (task: string, taskId: number) => {
   // confirmMsg:
   addGenericElem(confirmDeleteBox, 'p', {text: 'Are you sure you want to delete this task:'})
   // taskText
-  addGenericElem(confirmDeleteBox, 'p', {text: task})
+  addGenericElem(confirmDeleteBox, 'p', {text: task, classes: ['task-text']})
   const deleteBtns = addGenericElem(confirmDeleteBox, 'div')
   const deleteBtn = addGenericElem(deleteBtns, 'button', {
     classes: ['task-action-btn', 'confirm-delete-btn'], 

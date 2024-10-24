@@ -2,6 +2,25 @@
 
 /* resets and setup */
 
+/* :root {
+  color-scheme: light dark;
+
+  --main-color: light-dark(#fff, #333)
+  --secondary-color: coral;
+
+} */
+
+:root {
+  color-scheme: light dark;
+
+  --main-bg-color: light-dark(#fff, #333);
+  --main-text-color: light-dark(#333, #fff);
+  --text-on-accent: light-dark(#fff, #333);
+  --accent-color: light-dark(coral, #adebb3);
+  --sec-bg-color: light-dark(#ddd, #555);
+  --overlay-color: light-dark(rgba(60, 60, 60, .8), rgba(195, 195, 195, .8));
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -141,15 +160,18 @@ h1 {
 }
 
 /* colors, bg, etc */
+body {
+  background-color: var(--main-bg-color);
+}
 
 h1 {
-  color: coral;
+  color: var(--accent-color);
   text-decoration: underline overline;
 }
 
 .submit-new-task {
-  background-color: coral;
-  color: #fff;
+  background-color: var(--accent-color);
+  color: var(--text-on-accent);
   opacity: 1;
   transition: all 200ms ease-in-out;
 }
@@ -159,27 +181,31 @@ h1 {
 }
 
 .task-item input {
-  color: #fff;
-  background-color: coral;  
+  color: var(--text-on-accent);
+  background-color: var(--accent-color);  
 }
 
 .task-item input[disabled] {
   background-color: transparent;
-  color: coral;
+  color: var(--accent-color);
   font-weight: 700;
 }
 
 .no-tasks-msg {
-  background-color: #ddd;
-  color: coral;
+  background-color: var(--sec-bg-color);
+  color: var(--accent-color);
 }
 
 .overlay-bg {
-  background-color: rgba(60, 60, 60, .8);
+  background-color: var(--overlay-color);
 }
 
 .confirm-delete-box {
-  background-color: #fff;
+  background-color: var(--main-bg-color);
+}
+
+.confirm-delete-box .task-text {
+  color: var(--accent-color);
 }
 
 .confirm-delete-box .task-action-btn {
@@ -204,6 +230,11 @@ h1 {
 
 .confirm-delete-box {
   font-size: 1.5rem;
+}
+
+.confirm-delete-box .task-text {
+  font-weight: bold;
+  font-style: italic;
 }
 
 /* more specific ones */
@@ -242,8 +273,12 @@ h1 {
 }
 
 .task-item input {
-  border: 1px solid coral;
+  border: 1px solid var(--accent-color);
   border-radius: 25px;
+}
+
+.confirm-delete-box {
+  border-radius: 50px;
 }
 
 @media (min-width: 800px) {
