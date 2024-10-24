@@ -51,13 +51,17 @@ h1 {
   margin-block: 2em;
 }
 
-form {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 2rem;
+.new-task-form {
+  margin-block-end: 4em;
+}
 
-  margin-block-end: 2em;
+.new-task-text {
+  margin-block-end: .5em;
+}
+
+.new-task-text,
+.submit-new-task {
+  width: 100%;
 }
 
 .submit-new-task {
@@ -70,20 +74,24 @@ form {
 }
 
 .task-item {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
   padding: 1em 2em;
+  width: 100%;
 }
 
 .task-text-wrapper {
   position: relative;
-  width: 60%;
+  margin-block-end: 1em;
+  /* width: 100%; */
 }
 
 .task-action-btns {
   /* width: 30%; */
   display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .task-action-btn {
@@ -236,4 +244,35 @@ h1 {
 .task-item input {
   border: 1px solid coral;
   border-radius: 25px;
+}
+
+@media (min-width: 800px) {
+  .new-task-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;  
+    margin-block-end: 2em;
+  }
+
+  .new-task-text {
+    margin-block-end: 0;
+  }
+
+  .new-task-text,
+  .submit-new-task {
+    width: auto;
+  }
+
+
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-text-wrapper {
+    width: 60%;
+    margin-block-end: 0;
+  }  
 }
