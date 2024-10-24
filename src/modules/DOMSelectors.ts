@@ -1,4 +1,4 @@
-import { getElement } from "./utils"
+import { getElement } from "./utils.js"
 
 export const newTaskForm = getElement<HTMLFormElement>(".new-task-form")
 
