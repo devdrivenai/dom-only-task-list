@@ -2,14 +2,6 @@
 
 /* resets and setup */
 
-/* :root {
-  color-scheme: light dark;
-
-  --main-color: light-dark(#fff, #333)
-  --secondary-color: coral;
-
-} */
-
 :root {
   color-scheme: light dark;
 
@@ -61,7 +53,6 @@ body {
 .container {
   width: min(80%, 750px);
   margin-inline: auto;
-  /*   border: 2px solid crimson; */
 }
 
 h1 {
@@ -118,9 +109,11 @@ h1 {
   margin-inline: .5em;
 }
 
-.task-action-btn:hover img,
-.edit-confirm-btn:hover img {
-  pointer-events: none;
+/* change above for :*/
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  justify-self: center;
 }
 
 .edit-confirm-btn {
@@ -212,6 +205,10 @@ h1 {
   margin-inline: 2em;
 }
 
+.icon {
+  background-color: var(--accent-color);
+}
+
 /* typography */
 
 .submit-new-task,
@@ -259,7 +256,7 @@ h1 {
 }
 
 .task-action-btn:hover {
-  border: 1px solid orange;
+  border: 1px solid var(--accent-color);
 }
 
 .task-action-btn:disabled {
@@ -279,6 +276,11 @@ h1 {
 
 .confirm-delete-box {
   border-radius: 50px;
+}
+
+.icon {
+  /* avoid event.target on icon instead of btn */
+  pointer-events: none;
 }
 
 @media (min-width: 800px) {

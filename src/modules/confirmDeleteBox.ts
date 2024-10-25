@@ -1,4 +1,4 @@
-import { addGenericElem, getElement } from "./utils.js"
+import { addGenericElem, addMaskedIcon, getElement } from "./utils.js"
 import { exitDeleteMode, loadNoTaskMsg } from "./task.js"
 import { deleteTask } from "./tasks.js"
 
@@ -14,19 +14,22 @@ export const confirmDeleteBox = (task: string, taskId: number) => {
   addGenericElem(confirmDeleteBox, 'p', {text: 'Are you sure you want to delete this task:'})
   // taskText
   addGenericElem(confirmDeleteBox, 'p', {text: task, classes: ['task-text']})
+  
   const deleteBtns = addGenericElem(confirmDeleteBox, 'div')
+
   const deleteBtn = addGenericElem(deleteBtns, 'button', {
     classes: ['task-action-btn', 'confirm-delete-btn'], 
     eventListeners: {click: () => {confirmDeleteHandler(taskId)}}
   })
   // deleteIcon
-  addGenericElem(deleteBtn, 'img', {attribs: {src: 'assets/delete-coral.svg'}})
+  addMaskedIcon(deleteBtn, {classes: ['icon']}, 'assets/delete-coral.svg')
+
   const cancelBtn = addGenericElem(deleteBtns, 'button', {
     classes: ['task-action-btn', 'cancel-delete-btn'],
     eventListeners: {click: cancelDeleteHandler}
   })
   // cancelIcon
-  addGenericElem(cancelBtn, 'img', {attribs: {src: 'assets/cancel-coral.svg'}})
+  addMaskedIcon(cancelBtn, {classes: ['icon']}, 'assets/cancel-coral.svg')
   return confirmDeleteBox  
 }
 

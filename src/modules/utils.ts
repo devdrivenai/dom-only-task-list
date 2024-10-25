@@ -37,6 +37,17 @@ export const addGenericElem = <T extends keyof HTMLElementTagNameMap>(
   return appendTo.appendChild(elem); // should return appended child
 };
 
+// masked to change fill color upon theme change
+export const addMaskedIcon = <T extends keyof HTMLElementTagNameMap>(  
+  appendTo: HTMLElement, 
+  options: HTMLElementOptions<T> = {},
+  urlStr: string 
+) => {
+    // is the spread even necessary here?
+    const icon = addGenericElem(appendTo, 'div', {...options})
+    icon.style.mask = `url(${urlStr}) no-repeat center`
+}
+
 export const isHTMLElement = (element: Element): element is HTMLElement => {
   return element instanceof HTMLElement
 }
