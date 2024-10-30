@@ -35,8 +35,7 @@ const addNewTaskToDOM = (taskTextInput: string, taskId: number) => {
       eventListeners: {click: editConfirmBtnHandler}
     })
     // confirmIcon
-    // addGenericElem(editConfirmBtn, 'img', {attribs: {src: 'assets/confirm-coral.svg'}})
-    addMaskedIcon(editConfirmBtn, {classes: ['icon']}, 'assets/confirm-coral.svg')
+    addMaskedIcon(editConfirmBtn, 'assets/confirm-icon.svg')
     
     const taskActionBtns = addGenericElem(newTaskDiv, 'div', {classes: ['task-action-btns']})
   
@@ -45,16 +44,14 @@ const addNewTaskToDOM = (taskTextInput: string, taskId: number) => {
       eventListeners: {click: editBtnHandler},
     })
     // editIcon
-    // addGenericElem(taskEditBtn, 'img', {attribs: {src: 'assets/edit-coral.svg'}})
-    addMaskedIcon(taskEditBtn, {classes: ['icon']}, 'assets/edit-coral.svg')
+    addMaskedIcon(taskEditBtn, 'assets/edit-icon.svg')
   
     const taskDeleteBtn = addGenericElem(taskActionBtns, 'button', {
       classes: ['task-action-btn', 'task-delete-btn'],
       eventListeners: {click: deleteBtnHandler}
     })
     // deleteIcon
-    // addGenericElem(taskDeleteBtn, 'img', {attribs: {src: 'assets/delete-coral.svg'}})
-    addMaskedIcon(taskDeleteBtn, {classes: ['icon']}, 'assets/delete-coral.svg')
+    addMaskedIcon(taskDeleteBtn, 'assets/delete-icon.svg')
     
   }
   // else log warning

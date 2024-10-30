@@ -22,14 +22,14 @@ export const confirmDeleteBox = (task: string, taskId: number) => {
     eventListeners: {click: () => {confirmDeleteHandler(taskId)}}
   })
   // deleteIcon
-  addMaskedIcon(deleteBtn, {classes: ['icon']}, 'assets/delete-coral.svg')
+  addMaskedIcon(deleteBtn, 'assets/delete-icon.svg')
 
   const cancelBtn = addGenericElem(deleteBtns, 'button', {
     classes: ['task-action-btn', 'cancel-delete-btn'],
     eventListeners: {click: cancelDeleteHandler}
   })
   // cancelIcon
-  addMaskedIcon(cancelBtn, {classes: ['icon']}, 'assets/cancel-coral.svg')
+  addMaskedIcon(cancelBtn, 'assets/cancel-icon.svg')
   return confirmDeleteBox  
 }
 

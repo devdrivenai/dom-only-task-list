@@ -40,12 +40,21 @@ export const addGenericElem = <T extends keyof HTMLElementTagNameMap>(
 // masked to change fill color upon theme change
 export const addMaskedIcon = <T extends keyof HTMLElementTagNameMap>(  
   appendTo: HTMLElement, 
+  urlStr: string,
   options: HTMLElementOptions<T> = {},
-  urlStr: string 
 ) => {
-    // is the spread even necessary here?
-    const icon = addGenericElem(appendTo, 'div', {...options})
-    icon.style.mask = `url(${urlStr}) no-repeat center`
+  const trimmedUrlStr = urlStr.trim()
+  if (trimmedUrlStr === '') {
+    throw new Error("urlStr can't be an empty string!");
+  }
+  if (!options.classes) {
+    options.classes = ['icon']
+  } else {
+    options.classes.push('icon')
+  }
+  const icon = addGenericElem(appendTo, 'div', options)
+  icon.style.mask = `url(${trimmedUrlStr}) no-repeat center`
+  return icon
 }
 
 export const isHTMLElement = (element: Element): element is HTMLElement => {
@@ -56,7 +65,7 @@ export const getElement = <T extends Element>(selector: string): T | null => {
   const elem = document.querySelector<T>(selector)
 
   if (!elem) {
-    console.warn(`There is no element for selector "${selector}" in the DOM`)
+    throw new Error(`There is no element for selector "${selector}" in the DOM`);
   }
 
   return elem
@@ -83,7 +92,16 @@ export const toggleEditability = (elemSet: HTMLElement | HTMLElement[]) => {
 }
 
 export const toggleId = (id: string, elem: HTMLElement) => {
+  if (id === '') {
+    throw new Error("You have to pass a valid ID, not an empty string.");
+  }
+  if (!elem) {
+    throw new Error("That element does not exist!");
+  }
   if (!document.querySelector(`#${id}`) && !(id in window)) {
+    if (elem.getAttribute('id')) {
+      throw new Error(`The element already has an ID: ${elem.getAttribute('id')}`);
+    }
     elem.setAttribute('id', id)
   } else if (document.querySelector(`#${id}`)) {
     elem.removeAttribute('id')
@@ -91,6 +109,9 @@ export const toggleId = (id: string, elem: HTMLElement) => {
 }
 
 export const focusInput = (inputField: HTMLInputElement) => {
+  if (typeof inputField.getAttribute('disabled') === 'string') {
+    throw new Error("Can't focus input. It is disabled. Remove disabled attrib first.");
+  }
   inputField.focus()
   // make sure cursor is at the end
   inputField.selectionStart = inputField.value.length
