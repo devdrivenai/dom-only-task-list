@@ -5,6 +5,9 @@ module.exports = {
   testEnvironment: "jsdom",
   moduleFileExtensions: ['ts', 'js'],
   moduleDirectories: ['node_modules', 'src'],
+  moduleNameMapper: {
+    '^(.*)\\.js$': '$1',
+  },
   transform: {
     "^.+.ts$": ["ts-jest",{}],
   },

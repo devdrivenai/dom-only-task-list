@@ -4,14 +4,13 @@ import { tasksPersisted } from "./modules/tasks.js";
 import { toggleEditMode, loadNoTaskMsg } from "./modules/task.js";
 
 window.onload = () => {
-  if (!tasksPersisted) {
+  if (!tasksPersisted()) {
     loadNoTaskMsg()
   } else {
-    console.log(tasksPersisted)
     // console.log('tasks loaded') // this will be useful later after persisting
   }
   const newTask = selectors.newTaskForm as HTMLElement
-  newTask.addEventListener("submit", submitNewTaskHandler);
+  newTask.addEventListener("submit", (ev) => {submitNewTaskHandler(ev, selectors.newTaskText)});
 
   document.addEventListener('keydown', handleKeyPress)
 };
@@ -22,7 +21,7 @@ const handleKeyPress = (ev: KeyboardEvent) => {
   const editableTask: HTMLInputElement | null = document.querySelector('#editable-task')
   if (!editableTask) {
     if (keyPressed === 'Enter') {
-      submitNewTaskHandler(ev)
+      submitNewTaskHandler(ev, selectors.newTaskText)
     }
     return
   }
