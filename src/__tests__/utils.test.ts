@@ -1,4 +1,4 @@
-import { addGenericElem, addMaskedIcon, focusInput, getElement, isHTMLElement, toggleEditability, toggleId } from "modules/utils";
+import { addGenericElem, addMaskedIcon, focusInput, getElement, isHTMLElement, toggleEditability, toggleId } from "utils";
 
 describe('addGenericElem', () => {
   let parent: HTMLElement

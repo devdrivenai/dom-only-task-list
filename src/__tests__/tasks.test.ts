@@ -1,4 +1,4 @@
-import { deleteTask, getTask, getTasks, persistTask, resetTasks, tasksPersisted } from 'modules/tasks'
+import { deleteTask, getTask, getTasks, persistTask, resetTasks, tasksPersisted } from 'tasks'
 
 let initialTasks : number
 
@@ -12,15 +12,6 @@ afterAll(() => {
 })
 
 describe('persistTask', () => {
-  // beforeEach(() => {
-  //   resetTasks()
-  //   initialTasks = tasksPersisted()
-  // })
-
-  // afterAll(() => {
-  //   resetTasks()
-  // })
-
   it('should persist multiple tasks & add right ID', () => {
     const task1 = 'Task 1'
     const task2 = 'Task 2'
@@ -47,15 +38,6 @@ describe('persistTask', () => {
 })
 
 describe('deleteTask', () => {
-  // beforeEach(() => {
-  //   resetTasks()
-  //   initialTasks = tasksPersisted()
-  // })
-
-  // afterAll(() => {
-  //   resetTasks()
-  // })
-
   it('should delete any item', () => {
     persistTask('Task 1')
     const id2 = persistTask('Task 2')

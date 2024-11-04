@@ -4,7 +4,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: "jsdom",
   moduleFileExtensions: ['ts', 'js'],
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules', 'src/modules'],
   moduleNameMapper: {
     '^(.*)\\.js$': '$1',
   },

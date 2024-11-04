@@ -5,10 +5,7 @@
     "module": "ES6",
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "paths": {
-      "modules/*": ["modules/*"]
-    },
+    "baseUrl": "./src/modules",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
