@@ -61,7 +61,7 @@ export const isHTMLElement = (element: Element): element is HTMLElement => {
   return element instanceof HTMLElement
 }
 
-export const getElement = <T extends Element>(selector: string): T | null => {
+export const getElement = <T extends Element>(selector: string): T => {
   const elem = document.querySelector<T>(selector)
 
   if (!elem) {

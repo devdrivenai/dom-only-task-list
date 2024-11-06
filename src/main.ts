@@ -1,7 +1,7 @@
-import * as selectors from "./modules/DOMSelectors.js"
-import { submitNewTaskHandler } from "./modules/newTask.js";
+import { submitNewTaskHandler } from "./modules/submitNewTaskHandler.js";
 import { tasksPersisted } from "./modules/tasks.js";
 import { toggleEditMode, loadNoTaskMsg } from "./modules/task.js";
+import { getElement } from "./modules/utils.js";
 
 window.onload = () => {
   if (!tasksPersisted()) {
@@ -9,8 +9,9 @@ window.onload = () => {
   } else {
     // console.log('tasks loaded') // this will be useful later after persisting
   }
-  const newTask = selectors.newTaskForm as HTMLElement
-  newTask.addEventListener("submit", (ev) => {submitNewTaskHandler(ev, selectors.newTaskText)});
+  const newTask = getElement<HTMLFormElement>(".new-task-form")
+  const newTaskText = getElement<HTMLTextAreaElement>(".new-task-text")
+  newTask.addEventListener("submit", (ev) => {submitNewTaskHandler(ev, newTaskText)});
 
   document.addEventListener('keydown', handleKeyPress)
 };
@@ -21,7 +22,8 @@ const handleKeyPress = (ev: KeyboardEvent) => {
   const editableTask: HTMLInputElement | null = document.querySelector('#editable-task')
   if (!editableTask) {
     if (keyPressed === 'Enter') {
-      submitNewTaskHandler(ev, selectors.newTaskText)
+      const newTaskText = getElement<HTMLTextAreaElement>(".new-task-text")
+      submitNewTaskHandler(ev, newTaskText)
     }
     return
   }

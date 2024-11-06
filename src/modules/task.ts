@@ -1,10 +1,11 @@
-import { allFormChildren, tasksSection } from "./DOMSelectors.js"
-import { addGenericElem, isHTMLElement, toggleEditability, toggleId, focusInput } from "./utils.js"
+import { addGenericElem, isHTMLElement, toggleEditability, toggleId, focusInput, getElement } from "./utils.js"
 import { confirmDeleteBox as createConfirmBox } from "./confirmDeleteBox.js"
 
 export const toggleFormAndBtns = () => {
   // task-action-btns are dynamic
   const taskActionBtns = [...document.querySelectorAll('.task-action-btn')].filter(isHTMLElement)
+  const newTaskForm = getElement<HTMLFormElement>(".new-task-form")
+  const allFormChildren: HTMLElement[] = Array.from(newTaskForm.children) as HTMLElement[]
   toggleEditability([...taskActionBtns, ...allFormChildren])
 }
 
@@ -75,16 +76,14 @@ export const deleteBtnHandler = (ev: Event) => {
 }
 
 export const loadNoTaskMsg = () => {
-  if (tasksSection && tasksSection instanceof HTMLElement) {
-    // noTaskMsg
-    addGenericElem(
-      tasksSection,
-      "div",
-      {
-        classes: ['no-tasks-msg'], 
-        text: 'No tasks yet! Is there anything you want to remember? Add it now!'
-      }
-    ); 
-  }
-  // else log warning?
+  const tasksSection = getElement<HTMLElement>('.tasks')
+  // noTaskMsg
+  addGenericElem(
+    tasksSection,
+    "div",
+    {
+      classes: ['no-tasks-msg'], 
+      text: 'No tasks yet! Is there anything you want to remember? Add it now!'
+    }
+  ); 
 }
