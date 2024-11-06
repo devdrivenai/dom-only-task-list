@@ -162,6 +162,13 @@ describe('addMaskedIcon', () => {
     }
     expect(parent.hasChildNodes()).toBe(false)
   })
+
+  it('should add icon class if it has other classes assigned, too', () => {
+    const newIcon = addMaskedIcon(parent, urlStr, {classes: ['class-1']})
+
+    expect(newIcon.classList).toContain('icon')
+    expect(newIcon.classList).toHaveLength(2)
+  })
 })
 
 describe('isHTMLElement', () => {
