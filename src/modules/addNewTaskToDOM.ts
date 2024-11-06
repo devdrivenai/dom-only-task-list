@@ -1,21 +1,8 @@
-import { newTaskText, tasksSection } from "./DOMSelectors.js";
-import { addGenericElem, addMaskedIcon } from "./utils.js";
-import { persistTask } from "./tasks.js";
-import { editBtnHandler, deleteBtnHandler, editConfirmBtnHandler } from "./task.js";
+import { tasksSection } from "DOMSelectors";
+import { editConfirmBtnHandler, editBtnHandler, deleteBtnHandler } from "task";
+import { addGenericElem, addMaskedIcon } from "utils";
 
-export const submitNewTaskHandler = (ev: Event) => {
-  ev.preventDefault();
-  if (newTaskText) {
-    if (!newTaskText.value) return
-
-    const taskId = persistTask(newTaskText.value)
-    addNewTaskToDOM(newTaskText.value, taskId)
-    newTaskText.value = ''
-  }
-  // else log warning
-};
-
-const addNewTaskToDOM = (taskTextInput: string, taskId: number) => {
+export const addNewTaskToDOM = (taskTextInput: string, taskId: number) => {
   document.querySelector(".no-tasks-msg")?.remove()
   if (tasksSection) {
     const newTaskDiv = addGenericElem(tasksSection, "div", {
