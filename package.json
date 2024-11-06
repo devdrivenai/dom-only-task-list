@@ -4,7 +4,9 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "jest --verbose --coverage"
+    "test": "jest",
+    "test-v": "jest --verbose",
+    "test-vc": "jest --verbose --coverage"
   },
   "keywords": [],
   "author": "",
