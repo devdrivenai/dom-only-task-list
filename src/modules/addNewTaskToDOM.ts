@@ -2,6 +2,12 @@ import { editConfirmBtnHandler, editBtnHandler, deleteBtnHandler } from "./task.
 import { addGenericElem, addMaskedIcon, getElement } from "./utils.js";
 
 export const addNewTaskToDOM = (taskTextInput: string, taskId: number) => {
+  if (!taskTextInput) {
+    throw new Error("The text of the task can't be empty.");
+  }
+  if (typeof taskId !== 'number' || !Number.isInteger(taskId)) {
+    throw new Error("The task id has to be an integer.");
+  }
   document.querySelector(".no-tasks-msg")?.remove()
   const tasksSection = getElement<HTMLElement>('.tasks')
   const newTaskDiv = addGenericElem(tasksSection, "div", {
