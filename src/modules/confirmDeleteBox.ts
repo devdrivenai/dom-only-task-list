@@ -1,5 +1,5 @@
-import { addGenericElem, addMaskedIcon, getElement } from "./utils.js"
-import { exitDeleteMode, loadNoTaskMsg } from "./task.js"
+import { addGenericElem, addMaskedIcon, getElement, toggleEditability } from "./utils.js"
+import { loadNoTaskMsg, selectFormAndBtns } from "./task.js"
 import { deleteTask } from "./tasks.js"
 
 const createOverlayBg = () => {
@@ -44,7 +44,7 @@ const cancelDeleteHandler = () => {
     overlayBg.remove()
   }
   // else log warning
-  exitDeleteMode()
+  toggleEditability(selectFormAndBtns())
 }
 
 const confirmDeleteHandler = (taskId: number) => {
@@ -64,5 +64,5 @@ const confirmDeleteHandler = (taskId: number) => {
     if (!tasks.childElementCount) loadNoTaskMsg
   }
   // does this one need a warning, too?
-  exitDeleteMode()
+  toggleEditability(selectFormAndBtns())
 }

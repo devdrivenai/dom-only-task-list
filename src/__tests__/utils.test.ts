@@ -333,11 +333,13 @@ describe('focusInput', () => {
     expect(inputField.selectionStart).toBe(inputField.value.length)
   })
 
-  it('should throw if input is disabled', () => {
+  it('should not throw if input is disabled, & should remain disabled', () => {
     inputField.setAttribute('disabled', '')
 
     expect(() => {
       focusInput(inputField)
-    }).toThrow()
+    }).not.toThrow()
+
+    expect(inputField.getAttribute('disabled')).not.toBeNull()
   })
 })

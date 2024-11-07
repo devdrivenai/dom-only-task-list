@@ -1,72 +1,85 @@
 import { addGenericElem, isHTMLElement, toggleEditability, toggleId, focusInput, getElement } from "./utils.js"
 import { confirmDeleteBox as createConfirmBox } from "./confirmDeleteBox.js"
 
-export const toggleFormAndBtns = () => {
+export const selectFormAndBtns = () => {
   // task-action-btns are dynamic
   const taskActionBtns = [...document.querySelectorAll('.task-action-btn')].filter(isHTMLElement)
   const newTaskForm = getElement<HTMLFormElement>(".new-task-form")
   const allFormChildren: HTMLElement[] = Array.from(newTaskForm.children) as HTMLElement[]
-  toggleEditability([...taskActionBtns, ...allFormChildren])
+  return [...taskActionBtns, ...allFormChildren]
 }
 
-export const toggleEditMode = (inputField: HTMLInputElement, textEdit = '') => {
-  if (!textEdit) {
+export const toggleEditMode = (
+  inputField : HTMLInputElement, skip = false
+) => {
+  if (!inputField.value || skip) {
     inputField.value = inputField.defaultValue
-  } else if (textEdit === inputField.defaultValue) {
+  } else if (inputField.value === inputField.defaultValue) {
     return
   } else {
     inputField.defaultValue = inputField.value
   }
   const confirmBtn = inputField.nextElementSibling
-  confirmBtn?.classList.toggle('active')
+  if (!(confirmBtn instanceof HTMLElement) || 
+      !confirmBtn.classList.contains('edit-confirm-btn')
+    ) {
+      throw new Error("Couldn\'t find a button with edit-confirm-btn class.");
+    }
+  confirmBtn.classList.toggle('active')
   toggleEditability(inputField)
-  toggleFormAndBtns()
+  toggleEditability(selectFormAndBtns())
   toggleId('editable-task', inputField)
   focusInput(inputField)
 }
 
 export const editConfirmBtnHandler = (ev: Event) => {
   const editConfirmBtn = ev.target as HTMLElement
-  const inputField = editConfirmBtn.previousElementSibling
-  // in case markup changes in future:
-  if (inputField && inputField instanceof HTMLInputElement) {
-    if (inputField.value === inputField.defaultValue) {
-      focusInput(inputField)
-      return
-    }
-    toggleEditMode(inputField, inputField.value)
+  const inputField = editConfirmBtn?.previousElementSibling as HTMLInputElement
+
+  if(!inputField || inputField.getAttribute('id') !== 'editable-task') {
+    throw new Error("There is no input with id editable-task here.");
   }
-  // else logging warning?
+
+  if (inputField.value === inputField.defaultValue) {
+    focusInput(inputField)
+    return
+  }
+
+  // need to update task here!
+  
+  toggleEditMode(inputField)
 }
 
 export const editBtnHandler = (ev: Event) => {
   const editBtn = ev.target as HTMLElement
   // selector specific to the task's event
-  const taskTextInput = editBtn.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
-  toggleEditMode(taskTextInput)
-}
+  const taskTextInput = editBtn?.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
 
-const enterDeleteMode = (task: string, taskId: number) => {
-  createConfirmBox(task, taskId)
-}
-
-export const exitDeleteMode = () => {
-  toggleFormAndBtns()
+  if (!taskTextInput || !(taskTextInput instanceof HTMLInputElement)) {
+    throw new Error("No input field to edit here. (Either you selected no element or the element is not an input.)");
+  }
+  toggleEditMode(taskTextInput, true)
 }
 
 export const deleteBtnHandler = (ev: Event) => {
-  toggleFormAndBtns()
+  toggleEditability(selectFormAndBtns())
   const deleteBtn = ev.target as HTMLElement
   // selectors specific to the task's event
-  const taskItem = deleteBtn.parentElement?.parentElement
-  const taskInputField = deleteBtn.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
+  const taskItem = deleteBtn?.parentElement?.parentElement as HTMLElement
+  if (!taskItem || !(taskItem instanceof HTMLDivElement)) {
+    throw new Error("That task doesn\'t exist. There is no task-item div here.");
+  }
+  const taskInputField = deleteBtn?.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
+  if (!taskInputField || !(taskInputField instanceof HTMLInputElement)) {
+    throw new Error("There is no task input to delete here.");
+  }
   if (taskInputField) {
     const taskText = taskInputField.value
     if (taskItem) {
       taskItem.setAttribute('id', 'deletable-task')
       const taskId = taskItem.dataset.taskid
       if (taskId) {
-        enterDeleteMode(taskText, parseInt(taskId))
+        createConfirmBox(taskText, parseInt(taskId))
       }
       // else log warning
     }

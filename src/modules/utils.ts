@@ -109,9 +109,8 @@ export const toggleId = (id: string, elem: HTMLElement) => {
 }
 
 export const focusInput = (inputField: HTMLInputElement) => {
-  if (typeof inputField.getAttribute('disabled') === 'string') {
-    throw new Error("Can't focus input. It is disabled. Remove disabled attrib first.");
-  }
+  if (typeof inputField.getAttribute('disabled') === 'string') return
+  
   inputField.focus()
   // make sure cursor is at the end
   inputField.selectionStart = inputField.value.length

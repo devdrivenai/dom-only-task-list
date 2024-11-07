@@ -31,10 +31,10 @@ const handleKeyPress = (ev: KeyboardEvent) => {
   if (keyPressed !== 'Escape' && keyPressed !== 'Enter') {
     return
   } else if (keyPressed === 'Escape') {
-    toggleEditMode(editableTask)
+    toggleEditMode(editableTask, true)
   } else if (keyPressed === 'Enter') {
     ev.preventDefault()
-    toggleEditMode(editableTask, editableTask.value)
+    toggleEditMode(editableTask)
   }
 }  
 
