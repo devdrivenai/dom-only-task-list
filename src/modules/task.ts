@@ -19,12 +19,8 @@ export const toggleEditMode = (
   } else {
     inputField.defaultValue = inputField.value
   }
-  const confirmBtn = inputField.nextElementSibling
-  if (!(confirmBtn instanceof HTMLElement) || 
-      !confirmBtn.classList.contains('edit-confirm-btn')
-    ) {
-      throw new Error("Couldn\'t find a button with edit-confirm-btn class.");
-    }
+  const taskId = inputField.dataset.taskid
+  const confirmBtn = getElement(`.edit-confirm-btn[data-taskid="${taskId}"]`)
   confirmBtn.classList.toggle('active')
   toggleEditability(inputField)
   toggleEditability(selectFormAndBtns())
@@ -32,11 +28,10 @@ export const toggleEditMode = (
   focusInput(inputField)
 }
 
-export const editConfirmBtnHandler = (ev: Event) => {
-  const editConfirmBtn = ev.target as HTMLElement
-  const inputField = editConfirmBtn?.previousElementSibling as HTMLInputElement
+export const editConfirmBtnHandler = (taskId: string) => {
+  const inputField = getElement(`input[data-taskid="${taskId}"]`) as HTMLInputElement
 
-  if(!inputField || inputField.getAttribute('id') !== 'editable-task') {
+  if(inputField.getAttribute('id') !== 'editable-task') {
     throw new Error("There is no input with id editable-task here.");
   }
 
@@ -45,47 +40,29 @@ export const editConfirmBtnHandler = (ev: Event) => {
     return
   }
 
-  // need to update task here!
+  // need to update task (in tasks) from here!
   
   toggleEditMode(inputField)
 }
 
-export const editBtnHandler = (ev: Event) => {
-  const editBtn = ev.target as HTMLElement
-  // selector specific to the task's event
-  const taskTextInput = editBtn?.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
-
-  if (!taskTextInput || !(taskTextInput instanceof HTMLInputElement)) {
-    throw new Error("No input field to edit here. (Either you selected no element or the element is not an input.)");
+export const editBtnHandler = (taskId: string) => {
+  if (taskId === '') {
+    throw new Error("The arg passed should be the task id (str) but is an empty string.");
   }
+  if (!Number.isInteger(parseInt(taskId))) {
+    throw new Error("This taskId can\'t be converted to an integer.");
+  }
+  const taskTextInput = getElement(`input[data-taskid="${taskId}"]`) as HTMLInputElement
   toggleEditMode(taskTextInput, true)
 }
 
-export const deleteBtnHandler = (ev: Event) => {
+export const deleteBtnHandler = (taskId: string) => {
+  const taskItem = getElement(`.task-item[data-taskid="${taskId}"]`)
+  const taskInputField = getElement(`input[data-taskid="${taskId}"]`) as HTMLInputElement
+  const taskText = taskInputField.value
+  taskItem.setAttribute('id', 'deletable-task')
   toggleEditability(selectFormAndBtns())
-  const deleteBtn = ev.target as HTMLElement
-  // selectors specific to the task's event
-  const taskItem = deleteBtn?.parentElement?.parentElement as HTMLElement
-  if (!taskItem || !(taskItem instanceof HTMLDivElement)) {
-    throw new Error("That task doesn\'t exist. There is no task-item div here.");
-  }
-  const taskInputField = deleteBtn?.parentElement?.previousElementSibling?.firstElementChild as HTMLInputElement
-  if (!taskInputField || !(taskInputField instanceof HTMLInputElement)) {
-    throw new Error("There is no task input to delete here.");
-  }
-  if (taskInputField) {
-    const taskText = taskInputField.value
-    if (taskItem) {
-      taskItem.setAttribute('id', 'deletable-task')
-      const taskId = taskItem.dataset.taskid
-      if (taskId) {
-        createConfirmBox(taskText, parseInt(taskId))
-      }
-      // else log warning
-    }
-    // else log warning
-  }
-  // else log warning
+  createConfirmBox(taskText, parseInt(taskId))
 }
 
 export const loadNoTaskMsg = () => {
