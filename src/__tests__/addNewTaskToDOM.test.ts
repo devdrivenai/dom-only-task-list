@@ -1,4 +1,5 @@
 import { addNewTaskToDOM } from "addNewTaskToDOM";
+import { deleteBtnHandler, editBtnHandler, editConfirmBtnHandler } from "task";
 import { addGenericElem, addMaskedIcon, getElement } from "utils";
 
 jest.mock('utils')
@@ -48,5 +49,26 @@ describe('addNewTasktoDOM', () => {
     expect(getElement).toHaveBeenCalledTimes(1)
     expect(addGenericElem).toHaveBeenCalledTimes(7)
     expect(addMaskedIcon).toHaveBeenCalledTimes(3)
+  })
+
+  it('should assign right taskId to handlers', () => {
+    const addGenericElemMock = addGenericElem as jest.Mock
+    addNewTaskToDOM('test input', 1234)
+
+    expect(addGenericElemMock.mock.calls[0][2].attribs.dataset.taskid).toEqual('1234')
+    expect(addGenericElemMock.mock.calls[2][2].attribs.dataset.taskid).toEqual('1234')
+    expect(addGenericElemMock.mock.calls[3][2].attribs.dataset.taskid).toEqual('1234')
+
+    let expectedEventListener = JSON.stringify(addGenericElemMock.mock.calls[3][2].eventListeners)
+    let receivedEventListener = JSON.stringify({click: () => editConfirmBtnHandler('1234')})
+    expect(expectedEventListener).toEqual(receivedEventListener)
+
+    expectedEventListener = JSON.stringify(addGenericElemMock.mock.calls[5][2].eventListeners)
+    receivedEventListener = JSON.stringify({click: () => editBtnHandler('1234')})
+    expect(expectedEventListener).toEqual(receivedEventListener)
+
+    expectedEventListener = JSON.stringify(addGenericElemMock.mock.calls[6][2].eventListeners)
+    receivedEventListener = JSON.stringify({click: () => deleteBtnHandler('1234')})
+    expect(expectedEventListener).toEqual(receivedEventListener)
   })
 })
