@@ -35,34 +35,19 @@ export const confirmDeleteBox = (task: string, taskId: number) => {
 
 const cancelDeleteHandler = () => {
   const task = getElement('#deletable-task')
-  if (task) {
-    task.removeAttribute('id')
-  }
-  // else log warning
+  task.removeAttribute('id')
   const overlayBg = getElement('.overlay-bg')
-  if (overlayBg) {
-    overlayBg.remove()
-  }
-  // else log warning
+  overlayBg.remove()
   toggleEditability(selectFormAndBtns())
 }
 
 const confirmDeleteHandler = (taskId: number) => {
   const task = getElement('#deletable-task')
-  if (task) {
-    task.remove()
-  }
-  // else log warning
+  task.remove()
   const overlayBg = getElement('.overlay-bg')
-  if (overlayBg) {
-    overlayBg.remove()
-  }
-  // else log warning
+  overlayBg.remove()
   deleteTask(taskId)
   const tasks = getElement('.tasks')
-  if (tasks) {
-    if (!tasks.childElementCount) loadNoTaskMsg
-  }
-  // does this one need a warning, too?
+  if (!tasks.childElementCount) loadNoTaskMsg
   toggleEditability(selectFormAndBtns())
 }
