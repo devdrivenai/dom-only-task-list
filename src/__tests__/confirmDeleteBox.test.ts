@@ -88,7 +88,7 @@ describe('confirmDeleteBox', () => {
     })
   })
 
-  describe('cancel', () => {
+  describe('cancelDeleteHandler', () => {
     it('should remove deletable-task id & overlay', () => {
       // prepare the dom
       const task = document.createElement('div')
